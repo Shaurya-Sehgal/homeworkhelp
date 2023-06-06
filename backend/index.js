@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 const port = 5010;
 
 const db = mysql.createConnection({
@@ -27,12 +28,7 @@ app.get("/api/homework", (req, res) => {
   });
 });
 
-app.post("/api/testing", (req, res) => {
-  console.log(req.body);
-});
-
 app.post("/api/user", (req, res) => {
-  console.log(req);
   const { username, password, email, displayname } = req.body;
   console.log(username);
   const sqlInsert =
@@ -65,6 +61,17 @@ app.post("/api/homework", (req, res) => {
       console.log(result);
     }
   );
+});
+
+app.get("/api/answer", (req, res) => {
+  const homeworkid = req.body.homeworkid;
+  sqlSelect = `SELECT * FROM answer WHERE homework_id = ${homeworkid}`;
+  db.query(sqlSelect, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
 });
 
 app.listen(port, () => {
