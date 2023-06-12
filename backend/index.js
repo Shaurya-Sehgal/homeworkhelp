@@ -16,7 +16,7 @@ const db = mysql.createConnection({
 
 db.connect((err) => {
   if (err) {
-    throw err;
+    console.log(err);
   }
   console.log("Connected to database");
 });
@@ -26,20 +26,6 @@ app.get("/api/homework", (req, res) => {
   db.query(sqlSelect, (err, result) => {
     res.send(result);
   });
-});
-
-app.post("/api/user", (req, res) => {
-  const { username, password, email, displayname } = req.body;
-  console.log(username);
-  const sqlInsert =
-    "INSERT INTO user (username, password, email, displayname) VALUES (?,?,?,?)";
-  db.query(
-    sqlInsert,
-    [username, password, email, displayname],
-    (err, result) => {
-      console.log(result);
-    }
-  );
 });
 
 app.post("/api/homework", (req, res) => {
@@ -62,6 +48,44 @@ app.post("/api/homework", (req, res) => {
     }
   );
 });
+
+app.post("/api/user", (req, res) => {
+  const { username, password, email, displayname } = req.body;
+  console.log(username);
+  const sqlInsert =
+    "INSERT INTO user (username, password, email, displayname) VALUES (?,?,?,?)";
+  db.query(
+    sqlInsert,
+    [username, password, email, displayname],
+    (err, result) => {
+      console.log(result);
+    }
+  );
+});
+
+app.post("/api/answer", (req, res) => {
+  const { id, answer, date, answerid, username, homework_id } = req.body;
+  sqlInsert =
+    "INSERT INTO answer (id, answer, date, answerid, username, homework_id) VALUES (?,?,?,?,?,?)";
+  db.query(
+    sqlInsert,
+    [id, answer, date, answerid, username, homework_id],
+    (err, result) => {
+      console.log(result);
+      res.send(result);
+    }
+  );
+});
+
+//create sample body for app.post/answer
+// {
+//   "id": 1,
+//   "answer": "This is a sample answer",
+//   "date": "2021-04-20",
+//   "answerid": 1,
+//   "username": "sampleuser",
+//   "homework_id": 1
+// }
 
 app.get("/api/answer", (req, res) => {
   const homeworkid = req.body.homeworkid;
