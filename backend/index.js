@@ -63,6 +63,21 @@ app.post("/api/user", (req, res) => {
   );
 });
 
+app.get("/api/checkUsername/:username", (req, res) => {
+  const username = req.params.username;
+  const sqlSelect = `SELECT * FROM user WHERE username = ?`;
+  db.query(sqlSelect, username, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    if (result.length === 0) {
+      res.send({ username: "available" });
+    } else {
+      res.send({ username: "taken" });
+    }
+  });
+});
+
 app.post("/api/answer", (req, res) => {
   const { id, answer, date, answerid, username, homework_id } = req.body;
   sqlInsert =
