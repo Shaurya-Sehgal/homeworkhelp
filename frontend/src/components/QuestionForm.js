@@ -4,6 +4,13 @@ function QuestionForm() {
   const [title, settitle] = useState("");
   const [subject, setsubject] = useState("");
   const [content, setcontent] = useState("");
+  const currentDate = new Date();
+
+  const currentDateTime = currentDate.toLocaleString(undefined, {
+    timeZone: "America/New_York",
+    timeStyle: "short",
+    dateStyle: "long",
+  });
   function postHomework() {
     fetch("http://localhost:5010/api/homework", {
       method: "POST",
@@ -14,9 +21,9 @@ function QuestionForm() {
         subject: subject,
         title: title,
         content: content,
-        username: "test2",
+        username: localStorage.getItem("username"),
         tags: "test",
-        date: new Date(),
+        date: currentDateTime + " EST",
       }),
     })
       .then((response) => response.json())

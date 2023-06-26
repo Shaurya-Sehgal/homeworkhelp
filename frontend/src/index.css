@@ -11,8 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.scorll {
-  overflow-x: hidden;
-  overflow-y: auto;
-}

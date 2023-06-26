@@ -7,8 +7,15 @@ create table
         username varchar(255) primary key,
         displayname varchar(255),
         password varchar(255),
-        email varchar(255)
     );
+
+insert into
+    user (
+        username,
+        displayname,
+        password
+    )
+values ('user1', 'User 1', 'password1');
 
 create table
     homework (
@@ -32,4 +39,58 @@ create table
         homework_id int,
         foreign key (username) references user(username),
         foreign key (homework_id) references homework(id)
+    );
+
+insert into
+    homework (
+        title,
+        content,
+        username,
+        tags,
+        subject,
+        date
+    )
+values (
+        'Homework 1',
+        'This is the first homework',
+        'user1',
+        'math',
+        'math',
+        '2020-01-01'
+    );
+
+insert into
+    homework (
+        title,
+        content,
+        username,
+        tags,
+        subject,
+        date
+    )
+values (
+        'Homework 2',
+        'This is the second homework',
+        'user2',
+        'math',
+        'math',
+        '2020-01-02'
+    );
+
+insert into
+    homework (
+        title,
+        content,
+        username,
+        tags,
+        subject,
+        date
+    )
+values (
+        'Homework 3',
+        'This is the third homework',
+        'user3',
+        'math',
+        'math',
+        '2020-01-03'
     );

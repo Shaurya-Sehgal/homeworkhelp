@@ -50,17 +50,14 @@ app.post("/api/homework", (req, res) => {
 });
 
 app.post("/api/user", (req, res) => {
-  const { username, password, email, displayname } = req.body;
+  console.log(req.body, "user");
+  const { username, password, displayname } = req.body;
   console.log(username);
   const sqlInsert =
-    "INSERT INTO user (username, password, email, displayname) VALUES (?,?,?,?)";
-  db.query(
-    sqlInsert,
-    [username, password, email, displayname],
-    (err, result) => {
-      console.log(result);
-    }
-  );
+    "INSERT INTO user (username, password, displayname) VALUES (?,?,?)";
+  db.query(sqlInsert, [username, password, displayname], (err, result) => {
+    console.log(result);
+  });
 });
 
 app.get("/api/checkUsername/:username", (req, res) => {
@@ -69,22 +66,30 @@ app.get("/api/checkUsername/:username", (req, res) => {
   db.query(sqlSelect, username, (err, result) => {
     if (err) {
       console.log(err);
-    }
-    if (result.length === 0) {
-      res.send({ username: "available" });
+    } else if (username.length <= 3) {
+      res.json({ username: "taken" });
+    } else if (result.length === 0) {
+      res.json({ username: "available" });
     } else {
-      res.send({ username: "taken" });
+      res.json({ username: "taken" });
     }
   });
 });
 
+app.get("/api/users", (req, res) => {
+  const sqlSelect = "SELECT * FROM user";
+  db.query(sqlSelect, (err, result) => {
+    res.send(result);
+  });
+});
+
 app.post("/api/answer", (req, res) => {
-  const { id, answer, date, answerid, username, homework_id } = req.body;
+  const { id, answer, date, username, homework_id } = req.body;
   sqlInsert =
-    "INSERT INTO answer (id, answer, date, answerid, username, homework_id) VALUES (?,?,?,?,?,?)";
+    "INSERT INTO answer (id, answer, date, username, homework_id) VALUES (?,?,?,?,?)";
   db.query(
     sqlInsert,
-    [id, answer, date, answerid, username, homework_id],
+    [id, answer, date, username, homework_id],
     (err, result) => {
       console.log(result);
       res.send(result);
@@ -92,24 +97,16 @@ app.post("/api/answer", (req, res) => {
   );
 });
 
-//create sample body for app.post/answer
-// {
-//   "id": 1,
-//   "answer": "This is a sample answer",
-//   "date": "2021-04-20",
-//   "answerid": 1,
-//   "username": "sampleuser",
-//   "homework_id": 1
-// }
-
-app.get("/api/answer", (req, res) => {
-  const homeworkid = req.body.homeworkid;
+app.get("/api/answer/:homeworkid", (req, res) => {
+  const homeworkid = req.params.homeworkid;
   sqlSelect = `SELECT * FROM answer WHERE homework_id = ${homeworkid}`;
   db.query(sqlSelect, (err, result) => {
     if (err) {
       console.log(err);
+      res.status(500).json({ error: "An error occurred" });
+    } else {
+      res.send(result);
     }
-    res.send(result);
   });
 });
 

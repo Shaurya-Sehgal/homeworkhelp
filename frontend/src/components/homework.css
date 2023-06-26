@@ -1,0 +1,38 @@
+.scrollbar {
+  overflow-y: scroll;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.col-lg-3,
+.col-md-6,
+.col-lg-6 {
+  height: 100%;
+}
+
+@media (max-width: 991.98px) {
+  .col-md-6 {
+    height: 450px; /* Adjust the desired height for medium screens */
+  }
+}
+
+@media (max-width: 767.98px) {
+  .col-lg-3 {
+    height: 400px; /* Adjust the desired height for small screens */
+  }
+}
