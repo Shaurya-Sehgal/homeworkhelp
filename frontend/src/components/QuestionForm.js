@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function QuestionForm() {
   const [title, settitle] = useState("");
@@ -11,6 +11,7 @@ function QuestionForm() {
     timeStyle: "short",
     dateStyle: "long",
   });
+
   function postHomework() {
     fetch("http://localhost:5010/api/homework", {
       method: "POST",
@@ -28,12 +29,30 @@ function QuestionForm() {
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
-    console.log("posted");
   }
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 1400) {
+        setcontentSize("300px");
+      } else {
+        setcontentSize("380px");
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const [contentSize, setcontentSize] = useState("380px");
+
   return (
     <>
       <form className="row g-3 needs-validation" noValidate="">
         <div className="col-12">
+          <h1 className="display-6">Post Homework</h1>
           <label htmlFor="validationCustom01" className="form-label">
             Subject
           </label>
@@ -68,14 +87,14 @@ function QuestionForm() {
             <textarea
               value={content}
               onChange={(e) => setcontent(e.target.value)}
-              style={{ height: "300px" }}
+              style={{ height: contentSize }}
               type="text"
               className="form-control"
               id="validationCustomUsername"
               aria-describedby="inputGroupPrepend"
               required=""
             />
-            <div className="invalid-feedback">Please choose a username.</div>
+            <div className="invalid-feedback">Please enter some content.</div>
           </div>
         </div>
         <div className="col-12">

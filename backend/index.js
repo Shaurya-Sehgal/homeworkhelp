@@ -28,6 +28,16 @@ app.get("/api/homework", (req, res) => {
   });
 });
 
+app.delete("/api/homework", (req, res) => {
+  const id = req.body.id;
+  const sqlDelete = "DELETE FROM homework WHERE id = ?";
+  db.query(sqlDelete, id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
+
 app.post("/api/homework", (req, res) => {
   const title = req.body.title;
   const content = req.body.content;
@@ -95,6 +105,13 @@ app.post("/api/answer", (req, res) => {
       res.send(result);
     }
   );
+});
+
+app.get("/api/answer", (req, res) => {
+  const sqlSelect = "SELECT * FROM answer";
+  db.query(sqlSelect, (err, result) => {
+    res.send(result);
+  });
 });
 
 app.get("/api/answer/:homeworkid", (req, res) => {

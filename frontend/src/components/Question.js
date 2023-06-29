@@ -53,7 +53,7 @@ function Question({ question }) {
 
   return (
     <>
-      <div className="card shadow mt-3 mb-4" key={question.id}>
+      <div className="card shadow mt-3 mb-4 text-center" key={question.id}>
         <div className="card-header fw-semibold">
           {question.subject} by {question.username}
         </div>
@@ -66,7 +66,7 @@ function Question({ question }) {
             href="#"
             className="btn btn-primary"
             data-bs-toggle="modal"
-            data-bs-target={`#exampleModal-${modalId}`}
+            data-bs-target={`#exampleModal-${question.id}`}
             data-bs-whatever="@mdo"
             onClick={() => openModal(question.id, false)}
           >
@@ -76,7 +76,7 @@ function Question({ question }) {
             href="#"
             className="btn btn-primary mx-2"
             data-bs-toggle="modal"
-            data-bs-target={`#checkAnswersModal-${checkModalId}`}
+            data-bs-target={`#checkAnswersModal-${question.id}`}
             data-bs-whatever="@mdo"
             onClick={() => openModal(question.id, true)}
           >
@@ -88,7 +88,7 @@ function Question({ question }) {
 
       <div
         className="modal fade modal-xl"
-        id={`exampleModal-${modalId}`}
+        id={`exampleModal-${question.id}`}
         tabIndex={-1}
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -150,7 +150,7 @@ function Question({ question }) {
 
       <div
         className="modal fade modal-xl"
-        id={`checkAnswersModal-${checkModalId}`}
+        id={`checkAnswersModal-${question.id}`}
         tabIndex={-1}
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -172,18 +172,19 @@ function Question({ question }) {
               />
             </div>
             <div className="modal-body">
-              {/* Display answers here */}
               {answers.length > 0 ? (
-                answers.map((answer) => (
-                  <div key={answer.id}>
-                    <h5 className="mb-4 display-6 fs-5 fw-semibold">
-                      Question: {question.content}
-                    </h5>
-                    <p>Answer: {answer.answer}</p>
-                    <p>Submitted on: {answer.date}</p>
-                    <p>Submitted by: {answer.username}</p>
-                  </div>
-                ))
+                <>
+                  <h5 className="mb-4 display-6 fs-5 fw-semibold">
+                    Question: {question.content}
+                  </h5>
+                  {answers.map((answer, index) => (
+                    <div key={answer.id}>
+                      {index > 0 && <hr />} <p>Answer: {answer.answer}</p>
+                      <p>Submitted on: {answer.date}</p>
+                      <p>Submitted by: {answer.username}</p>
+                    </div>
+                  ))}
+                </>
               ) : (
                 <h5>Be the first one to answer!</h5>
               )}

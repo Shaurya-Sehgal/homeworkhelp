@@ -9,17 +9,24 @@ function Homepage() {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-lg-3 col-md-12 py-5 shadow rounded-3 mt-4">
-            <QuestionForm />
-          </div>
           <div
-            className="col-lg-5 col-md-12 scrollbar mx-3 shadow-lg rounded-top mt-4"
+            className="col-lg-3 col-md-12 mt-4 shadow rounded-3 text-center scrollbar"
+            style={{ height: "89.2vh" }}
+          >
+            <UserOptions />
+          </div>
+
+          <div
+            className="col-lg-5 col-md-12 mx-auto scrollbar shadow-lg rounded-top mt-4"
             style={{ height: "89.2vh" }}
           >
             <AllQuestions />
           </div>
-          <div className="col-lg-3 col-md-12 mt-4 shadow rounded-3">
-            <UserOptions />
+          <div
+            className="col-lg-3 col-md-12 py-2 shadow rounded-3 mt-4 text-center"
+            style={{ height: "89.2vh" }}
+          >
+            <QuestionForm />
           </div>
         </div>
       </div>

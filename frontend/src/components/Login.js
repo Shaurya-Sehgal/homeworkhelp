@@ -28,58 +28,56 @@ function Login() {
       console.log("Invalid username or password");
     }
   }
-  return (
-    <>
-      <div className="container">
-        <div
-          className="row d-flex align-items-center"
-          style={{ minHeight: "80vh" }}
-        >
-          <div className="col text-center">
-            <h2 className="display-2">Login</h2>
-            <a
-              href=""
-              className="text-decoration-none"
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              <h6 className="display-6 fs-3">Sign up</h6>
-            </a>
-          </div>
 
-          <div className="col">
-            <div className="row py-2">
-              <div className="col-md-8 m-auto shadow py-3 rounded-5">
-                <input
-                  value={username}
-                  onChange={(e) => setusername(e.target.value)}
-                  type="text"
-                  className="form-control my-3 shadow rounded-3 "
-                  id="specificSizeInputUsername"
-                  placeholder="username"
-                />
-                <input
-                  value={password}
-                  onChange={(e) => setpassword(e.target.value)}
-                  type="password"
-                  className="form-control my-3 shadow rounded-3"
-                  id="specificSizeInputPassword"
-                  placeholder="password"
-                />
-                <button
-                  onClick={handleLogin}
-                  type="submit"
-                  className="btn btn-primary w-100 shadow rounded-4"
-                >
-                  Login
-                </button>
-              </div>
+  return (
+    <div className="container">
+      <div
+        className="row d-flex align-items-center"
+        style={{ minHeight: "80vh" }}
+      >
+        <div className="col-lg-6 col-md-12 text-center">
+          <h2 className="display-2">Login</h2>
+          <a
+            href=""
+            className="text-decoration-none"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            <h6 className="display-6 fs-3">Sign up</h6>
+          </a>
+        </div>
+        <div className="col-lg-6 col-md-12">
+          <div className="row py-2">
+            <div className="col-md-8 m-auto shadow py-3 rounded-5">
+              <input
+                value={username}
+                onChange={(e) => setusername(e.target.value)}
+                type="text"
+                className="form-control my-3 shadow rounded-3"
+                id="specificSizeInputUsername"
+                placeholder="username"
+              />
+              <input
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
+                type="password"
+                className="form-control my-3 shadow rounded-3"
+                id="specificSizeInputPassword"
+                placeholder="password"
+              />
+              <button
+                onClick={handleLogin}
+                type="submit"
+                className="btn btn-primary w-100 shadow rounded-4"
+              >
+                Login
+              </button>
             </div>
           </div>
         </div>
-      </div>{" "}
-    </>
+      </div>
+    </div>
   );
 }
 
